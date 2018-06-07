@@ -175,6 +175,9 @@
 <text x="26.67" y="8.89" size="1.778" layer="25" ratio="15">https://github.com/ThingySticks/LedTile</text>
 <text x="59.69" y="19.05" size="1.778" layer="25" ratio="15">V1.0</text>
 <text x="26.67" y="12.3825" size="1.778" layer="25" ratio="15">http://ThingySticks.com/LedTile</text>
+<dimension x1="3.095" y1="80.325" x2="3.1" y2="72.4" x3="-19.602615625" y3="76.348178125" textsize="1.778" layer="47"/>
+<dimension x1="3.095" y1="80.325" x2="3.1" y2="88.2" x3="-19.60191875" y3="84.2769125" textsize="1.778" layer="47"/>
+<dimension x1="3.095" y1="80.325" x2="0" y2="-0.1" x3="-25" y3="40.1125" textsize="1.778" layer="47" dtype="vertical"/>
 </plain>
 <libraries>
 <library name="SparkFun-Aesthetics">
