@@ -10121,8 +10121,8 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="GND5" library="SparkFun-PowerSymbols" deviceset="DGND" device=""/>
 <part name="SUPPLY6" library="SparkFun-PowerSymbols" deviceset="5V" device=""/>
 <part name="GND6" library="SparkFun-PowerSymbols" deviceset="DGND" device=""/>
-<part name="R3" library="SparkFun-Resistors" deviceset="RESISTOR" device="0805" value=" "/>
-<part name="R4" library="SparkFun-Resistors" deviceset="RESISTOR" device="0805" value=" "/>
+<part name="R3" library="SparkFun-Resistors" deviceset="RESISTOR" device="0805" value="10k"/>
+<part name="R4" library="SparkFun-Resistors" deviceset="RESISTOR" device="0805" value="10k"/>
 <part name="GND7" library="SparkFun-PowerSymbols" deviceset="DGND" device=""/>
 <part name="+3V2" library="supply1" deviceset="+3V3" device=""/>
 <part name="GND8" library="SparkFun-PowerSymbols" deviceset="DGND" device=""/>
@@ -10197,6 +10197,13 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <plain>
 <text x="200.66" y="139.7" size="1.27" layer="91">TODO: RS485/422/232 or CAN...</text>
 <text x="139.7" y="129.54" size="1.27" layer="91">Low Power</text>
+<text x="221.996" y="118.618" size="1.778" layer="97">D15 -&gt; GND - Enable UART Download</text>
+<text x="226.568" y="123.698" size="1.778" layer="97">D0 -&gt; GND - Enable Flash reprogramming</text>
+<text x="134.62" y="147.32" size="1.778" layer="97">CH_PD -&gt; VCC enable the chip</text>
+<text x="190.5" y="101.6" size="1.27" layer="97">Flash Startup (Normal) GPIO0: 1 GPIO2: 1 GPIO15: 0
+UART Download Mode (Programming) GPIO0: 0 GPIO2: 1 GPIO15: 0
+SD-Card Boot GPIO0: 0 GPIO2: 0 GPIO15: 1</text>
+<text x="198.12" y="147.32" size="1.27" layer="97">TODO: D0 &amp; CH_PD need pullups</text>
 </plain>
 <instances>
 <instance part="L1" gate="G$1" x="30.48" y="106.68"/>
@@ -10246,8 +10253,14 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <instance part="GND5" gate="G$1" x="101.6" y="157.48"/>
 <instance part="SUPPLY6" gate="G$1" x="2.54" y="76.2"/>
 <instance part="GND6" gate="G$1" x="53.34" y="71.12"/>
-<instance part="R3" gate="G$1" x="213.36" y="119.38"/>
-<instance part="R4" gate="G$1" x="213.36" y="121.92"/>
+<instance part="R3" gate="G$1" x="213.36" y="119.38" smashed="yes">
+<attribute name="NAME" x="213.36" y="115.824" size="1.778" layer="95" font="vector" align="bottom-center"/>
+<attribute name="VALUE" x="213.36" y="117.856" size="1.778" layer="96" font="vector" align="top-center"/>
+</instance>
+<instance part="R4" gate="G$1" x="213.36" y="121.92" smashed="yes">
+<attribute name="NAME" x="213.36" y="123.444" size="1.778" layer="95" font="vector" align="bottom-center"/>
+<attribute name="VALUE" x="213.36" y="120.396" size="1.778" layer="96" font="vector" align="top-center"/>
+</instance>
 <instance part="GND7" gate="G$1" x="220.98" y="114.3"/>
 <instance part="+3V2" gate="G$1" x="220.98" y="127"/>
 <instance part="GND8" gate="G$1" x="195.58" y="111.76"/>
@@ -11224,4 +11237,10 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </sheets>
 </schematic>
 </drawing>
+<compatibility>
+<note version="6.3" minversion="6.2.2" severity="warning">
+Since Version 6.2.2 text objects can contain more than one line,
+which will not be processed correctly with this version.
+</note>
+</compatibility>
 </eagle>
