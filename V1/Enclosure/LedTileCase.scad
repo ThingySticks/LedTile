@@ -3,15 +3,21 @@ $fn = 180;
 // See also...
 // https://www.youtube.com/watch?v=_vxVo6bJa1k
 
-showBase = false;
-showCover = true;
-showModels = false;
+showBase = true;
+showCover = false;
+showModels = true;
 
+// 100mm for small, 170mm for large
 pcbWidth = 100;
 pcbHeight = 100;
+//pcbWidth = 170;
+//pcbHeight = 170;
 
+// 10mm for small, 5mm for large tile.
 pcbPaddingXAxis = 10;
 pcbPaddingYAxis = 10;
+//pcbPaddingXAxis = 5;
+//pcbPaddingYAxis = 5;
 
 // Thickness of the wall.
 wallThickness = 1.5;
@@ -109,7 +115,6 @@ module showPcbModel() {
                         }
                     }
                 }
-                
             }
         }
         union() {
@@ -405,21 +410,21 @@ sidePassthroughCableY = 90.5;
         // Top/Bottom cable cutouts for power cables.
         if (includeBottomCutouts) {
             translate([(width/2)-5,-2, 0]) {
-                #cube([10,4,baseDepth+2]);
+                //#cube([10,4,baseDepth+2]);
             }
         }
         
         // rear power entry
         if (includePowerEntry) {
-            translate([width/2,height-7,0]) {
-                cylinder(d=10, h=baseDepth+2);
+            translate([width/2,height-12,0]) {
+                cylinder(d=18, h=baseDepth+2);
             }
         }
         
         // bottom cable
         if (includeTopCutouts) {
             translate([(width/2)-5,height-3, 0]) {
-                cube([10,4,baseDepth+2]);
+               // cube([10,4,baseDepth+2]);
             }
         }
         
@@ -475,7 +480,7 @@ module Base() {
             // Implement in case specific file...
             extraCutouts();
             
-            interlockingCutouts();
+           // interlockingCutouts();
 		}
 	}
 }
@@ -485,9 +490,11 @@ module Base() {
 // -----------------------------------------
 
 
-coverDepth = 6;
-coverThickness= 1.5;
+// TODO: Cura - Make bottom layer thickness greater than coverThickness + difurosHeight.
+coverDepth = 25; // 6mm min for trial.
+coverThickness= 2.5; // 1.5 - thin, almost transparent.
 jointDepth = 4;
+difusorHeight = 4;
 
 module CoverMainBody() {
 
@@ -501,7 +508,7 @@ echo("coverThickness", coverThickness);
                 
             // Compensate for the rounding missing
             translate([0,0,-curveRadius]) {
-                GenericBase(width, height, coverDepth-curveRadius);
+                GenericBase(width-0.4, height-0.4, coverDepth-curveRadius);
             }
 		}
 		union() {
@@ -518,15 +525,32 @@ echo("coverThickness", coverThickness);
 			}
 		}
 	}
+
+
+    /*
+    translate([pcbPaddingXAxis, pcbPaddingYAxis, (coverDepth-curveRadius - coverThickness-(1+difusorHeight))]) {
+        
+        // LED difusing...
+        translate([5,5,pcbThickness]) {
+            for (y=[0:30:90]) {
+                for (x=[0:30:90]) {
+                    translate([x,y,0]) {
+                        cylinder(d2=29, d1=8, h=difusorHeight);
+                    }
+                }
+            }
+        }
+    }
+    */
 }
 
 
 module coverToBaseJoint() {
     
 innerCutoutOffset = 1.5;
-jointOverlap = 2;
+jointOverlap = 8;
 coverThickness = 1.5;
-jointTollerance = 0.2;
+jointTollerance = 0.0;
     
 echo("coverDepth",coverDepth);
 echo("coverThickness", coverThickness);
@@ -534,14 +558,14 @@ echo("coverThickness", coverThickness);
 jointWidth = width-((wallThickness+jointTollerance)*2);
 jointHeight = height-((wallThickness+jointTollerance)*2);
     
-    translate([wallThickness+0.1, wallThickness+0.1, 0]) {
+    translate([wallThickness, wallThickness, 0]) {
     
         difference() {
             union() {
                     
                 // Compensate for the rounding missing
                 translate([0,0,-curveRadius]) {
-                    GenericBase(jointWidth, jointHeight, jointDepth+jointOverlap);
+                   GenericBase(jointWidth, jointHeight, jointDepth+jointOverlap);
                 }
             }
             union() {
